@@ -20,3 +20,9 @@ Running API:
 ```
 python notifyme/notifyme.py
 ```
+
+Running tests:
+
+```
+nosetests notifyme
+```
