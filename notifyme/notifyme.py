@@ -1,6 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask
+from flask_restplus import Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
 sample_notifications = [
     {
@@ -10,9 +12,11 @@ sample_notifications = [
     }
 ]
 
-@app.route('/notifications/', methods=['GET'])
-def get_notifications():
-    return jsonify({'notifications': sample_notifications})
+
+@api.route('/notifications/')
+class Notification(Resource):
+    def get(self):
+        return sample_notifications
 
 if __name__ == '__main__':
     app.run(debug=True)

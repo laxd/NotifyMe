@@ -2,12 +2,6 @@
 An open API that allows delivery of notifications to all listeners registered for a particular topic.
 
 # Getting started
-Using virtualenv is recommended:
-
-```
-virtualenv venv
-. venv/bin/activate
-```
 
 Installing dependencies:
 
@@ -24,5 +18,5 @@ python notifyme/notifyme.py
 Running tests:
 
 ```
-nosetests notifyme
+nosetests
 ```
