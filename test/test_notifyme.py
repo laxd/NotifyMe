@@ -1,14 +1,12 @@
 import unittest
-from notifyme.notifyme import app
-from notifyme.notifyme import dao
+from notifyme import notifyme
 
 
 class Test(unittest.TestCase):
-
     def setUp(self):
-        self.app = app.test_client()
+        self.app = notifyme.app.test_client()
 
-        dao.create("source", "message")
+        notifyme.dao.create("source", "message")
 
     def test_notifications_call(self):
         response = self.app.get('/notifications/')

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restplus import Api, Resource
-from .dao import NotificationDao
-from .swagger import get_parser, get_model
+from notifyme.dao import NotificationDao
+from notifyme.swagger import get_parser, get_model
 
 app = Flask(__name__)
 api = Api(app)
@@ -34,6 +34,11 @@ class Notification(Resource):
             api.abort(404, "Notification {} doesn't exist".format(id))
 
         return notification
+
+    def post(self):
+        args = parser.parse_args()
+
+        return dao.update(args['id'], args['source'], args['message'])
 
     def delete(self, id):
         return dao.delete(id)

@@ -11,14 +11,24 @@ class NotificationDao(object):
         return None
 
     def create(self, source, message):
-        notification = {}
-        notification['id'] = self.latest_id
-        notification['source'] = source
-        notification['message'] = message
+        notification = {'id': self.latest_id,
+                        'source': source,
+                        'message': message}
 
-        self.latest_id = self.latest_id + 1
+        self.latest_id += 1
 
         self.notifications.append(notification)
+
+        return notification
+
+    def update(self, id, source, message):
+        notification = self.get(id)
+
+        if notification is None:
+            return notification
+
+        notification['source'] = source
+        notification['message'] = message
 
         return notification
 
