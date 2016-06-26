@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, main
 from notifyme import notifyme
 
 
@@ -22,5 +22,15 @@ class TestApiCalls(TestCase):
         self.assertEquals(response.status_code, 404)
 
 
+class TestSocketIO(TestCase):
+    def setUp(self):
+        self.socket = notifyme.socketio.test_client(notifyme.app)
+
+    def test_notification_delivered(self):
+        count = notifyme.dao.notifications.__len__()
+        self.socket.emit("notification", "source", "message")
+
+        self.assertEqual(count + 1, notifyme.dao.notifications.__len__())
+
 if __name__ == '__main__':
-    unittest.main()
+    main()

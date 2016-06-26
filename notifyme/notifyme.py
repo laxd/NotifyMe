@@ -1,11 +1,14 @@
 from flask import Flask
+from flask_socketio import SocketIO
 from flask_restplus import Api, Resource
-from notifyme.dao import NotificationDao
-from notifyme.swagger import get_parser, get_model
+from .dao import NotificationDao
+from .swagger import get_parser, get_model
 
 app = Flask(__name__)
 api = Api(app)
 dao = NotificationDao()
+socketio = SocketIO(app)
+
 dao.create("Test Source", "Test Message")
 
 parser = get_parser(api)
@@ -43,5 +46,8 @@ class Notification(Resource):
     def delete(self, id):
         return dao.delete(id)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+@socketio.on("notification")
+def deliver_notification(notification, source):
+    dao.create(source, notification)
+    print("received notification '%s' from '%s'" % (notification, source))
