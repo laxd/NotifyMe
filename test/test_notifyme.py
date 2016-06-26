@@ -1,8 +1,8 @@
-import unittest
+from unittest import TestCase
 from notifyme import notifyme
 
 
-class Test(unittest.TestCase):
+class TestApiCalls(TestCase):
     def setUp(self):
         self.app = notifyme.app.test_client()
 
