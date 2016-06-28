@@ -1,3 +1,4 @@
 flask
 flask-restplus
 flask-socketio
+nose
